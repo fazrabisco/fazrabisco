@@ -2,16 +2,16 @@
 title: faz rabisco
 subtitle:
 email: fazrabisco@gmail.com
-description:
+description: a
 baseurl: "/forty-jekyll-theme" # the subpath of your site, e.g. /blog
 url: # the base hostname & protocol for your site
-author:
-street_address: 
-city: 
-state: 
-zip_code: 
-country:
-phone:
+author: a
+street_address:  a
+city: a
+state: a
+zip_code: 1
+country: a
+phone: 1
 
 # homepage tiles
 tiles-source: posts # accepts "posts" or "pages"
@@ -21,6 +21,8 @@ tiles-count: 6
 # see https://fontawesome.com/icons?d=gallery&p=2&s=brands
 # Icons are not shown if value is empty
 # You need to restart jekyll for changes to have an effect
+socials:
+  GitHub:
 
 # build settings
 markdown: kramdown
