@@ -1,281 +1,352 @@
 /*
-	Multiverse by HTML5 UP
+	Forty by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
 (function($) {
 
-	var	$window = $(window),
-		$body = $('body'),
-		$wrapper = $('#wrapper');
+	skel.breakpoints({
+		xlarge: '(max-width: 1680px)',
+		large: '(max-width: 1280px)',
+		medium: '(max-width: 980px)',
+		small: '(max-width: 736px)',
+		xsmall: '(max-width: 480px)',
+		xxsmall: '(max-width: 360px)'
+	});
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:  [ '1281px',  '1680px' ],
-			large:   [ '981px',   '1280px' ],
-			medium:  [ '737px',   '980px'  ],
-			small:   [ '481px',   '736px'  ],
-			xsmall:  [ null,      '480px'  ]
-		});
+	/**
+	 * Applies parallax scrolling to an element's background image.
+	 * @return {jQuery} jQuery object.
+	 */
+	$.fn._parallax = (skel.vars.browser == 'ie' || skel.vars.browser == 'edge' || skel.vars.mobile) ? function() { return $(this) } : function(intensity) {
 
-	// Hack: Enable IE workarounds.
-		if (browser.name == 'ie')
-			$body.addClass('ie');
+		var	$window = $(window),
+			$this = $(this);
 
-	// Touch?
-		if (browser.mobile)
-			$body.addClass('touch');
+		if (this.length == 0 || intensity === 0)
+			return $this;
 
-	// Transitions supported?
-		if (browser.canUse('transition')) {
+		if (this.length > 1) {
 
-			// Play initial animations on page load.
-				$window.on('load', function() {
-					window.setTimeout(function() {
-						$body.removeClass('is-preload');
-					}, 100);
-				});
+			for (var i=0; i < this.length; i++)
+				$(this[i])._parallax(intensity);
 
-			// Prevent transitions/animations on resize.
-				var resizeTimeout;
-
-				$window.on('resize', function() {
-
-					window.clearTimeout(resizeTimeout);
-
-					$body.addClass('is-resizing');
-
-					resizeTimeout = window.setTimeout(function() {
-						$body.removeClass('is-resizing');
-					}, 100);
-
-				});
+			return $this;
 
 		}
 
-	// Scroll back to top.
-		$window.scrollTop(0);
+		if (!intensity)
+			intensity = 0.25;
 
-	// Panels.
-		var $panels = $('.panel');
+		$this.each(function() {
 
-		$panels.each(function() {
+			var $t = $(this),
+				on, off;
 
-			var $this = $(this),
-				$toggles = $('[href="#' + $this.attr('id') + '"]'),
-				$closer = $('<div class="closer" />').appendTo($this);
+			on = function() {
 
-			// Closer.
-				$closer
-					.on('click', function(event) {
-						$this.trigger('---hide');
-					});
+				$t.css('background-position', 'center 100%, center 100%, center 0px');
 
-			// Events.
-				$this
-					.on('click', function(event) {
-						event.stopPropagation();
-					})
-					.on('---toggle', function() {
+				$window
+					.on('scroll._parallax', function() {
 
-						if ($this.hasClass('active'))
-							$this.triggerHandler('---hide');
-						else
-							$this.triggerHandler('---show');
+						var pos = parseInt($window.scrollTop()) - parseInt($t.position().top);
 
-					})
-					.on('---show', function() {
-
-						// Hide other content.
-							if ($body.hasClass('content-active'))
-								$panels.trigger('---hide');
-
-						// Activate content, toggles.
-							$this.addClass('active');
-							$toggles.addClass('active');
-
-						// Activate body.
-							$body.addClass('content-active');
-
-					})
-					.on('---hide', function() {
-
-						// Deactivate content, toggles.
-							$this.removeClass('active');
-							$toggles.removeClass('active');
-
-						// Deactivate body.
-							$body.removeClass('content-active');
+						$t.css('background-position', 'center ' + (pos * (-1 * intensity)) + 'px');
 
 					});
 
-			// Toggles.
-				$toggles
-					.removeAttr('href')
-					.css('cursor', 'pointer')
-					.on('click', function(event) {
+			};
 
-						event.preventDefault();
-						event.stopPropagation();
+			off = function() {
 
-						$this.trigger('---toggle');
+				$t
+					.css('background-position', '');
 
-					});
+				$window
+					.off('scroll._parallax');
+
+			};
+
+			skel.on('change', function() {
+
+				if (skel.breakpoint('medium').active)
+					(off)();
+				else
+					(on)();
+
+			});
 
 		});
 
-		// Global events.
-			$body
-				.on('click', function(event) {
+		$window
+			.off('load._parallax resize._parallax')
+			.on('load._parallax resize._parallax', function() {
+				$window.trigger('scroll');
+			});
 
-					if ($body.hasClass('content-active')) {
+		return $(this);
 
-						event.preventDefault();
-						event.stopPropagation();
+	};
 
-						$panels.trigger('---hide');
+	$(function() {
 
-					}
+		var	$window = $(window),
+			$body = $('body'),
+			$wrapper = $('#wrapper'),
+			$header = $('#header'),
+			$banner = $('#banner');
 
-				});
+		// Disable animations/transitions until the page has loaded.
+			$body.addClass('is-loading');
 
-			$window
-				.on('keyup', function(event) {
+			window.setTimeout(function() {
+				$body.removeClass('is-loading');
+			}, 200);
 
-					if (event.keyCode == 27
-					&&	$body.hasClass('content-active')) {
+		// Clear transitioning state on unload/hide.
+			$window.on('unload pagehide', function() {
+				window.setTimeout(function() {
+					$('.is-transitioning').removeClass('is-transitioning');
+				}, 250);
+			});
 
-						event.preventDefault();
-						event.stopPropagation();
+		// Fix: Enable IE-only tweaks.
+			if (skel.vars.browser == 'ie' || skel.vars.browser == 'edge')
+				$body.addClass('is-ie');
 
-						$panels.trigger('---hide');
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
 
-					}
+		// Prioritize "important" elements on medium.
+			skel.on('+medium -medium', function() {
+				$.prioritize(
+					'.important\\28 medium\\29',
+					skel.breakpoint('medium').active
+				);
+			});
 
-				});
+		// Scrolly.
+			$('.scrolly').scrolly({
+				offset: function() {
+					return $header.height() - 2;
+				}
+			});
 
-	// Header.
-		var $header = $('#header');
+		// Tiles.
+			var $tiles = $('.tiles > article');
 
-		// Links.
-			$header.find('a').each(function() {
+			$tiles.each(function() {
 
 				var $this = $(this),
-					href = $this.attr('href');
+					$image = $this.find('.image'), $img = $image.find('img'),
+					$link = $this.find('.link'),
+					x;
 
-				// Internal link? Skip.
-					if (!href
-					||	href.charAt(0) == '#')
-						return;
+				// Image.
 
-				// Redirect on click.
-					$this
-						.removeAttr('href')
-						.css('cursor', 'pointer')
-						.on('click', function(event) {
+					// Set image.
+						$this.css('background-image', 'url(' + $img.attr('src') + ')');
 
-							event.preventDefault();
-							event.stopPropagation();
+					// Set position.
+						if (x = $img.data('position'))
+							$image.css('background-position', x);
 
-							window.location.href = href;
+					// Hide original.
+						$image.hide();
+
+				// Link.
+					if ($link.length > 0) {
+
+						$x = $link.clone()
+							.text('')
+							.addClass('primary')
+							.appendTo($this);
+						
+						$x.attr('aria-label', $link.text());
+
+						$link = $link.add($x);
+
+						$link.on('click', function(event) {
+
+							var href = $link.attr('href');
+
+							// Prevent default.
+								event.stopPropagation();
+								event.preventDefault();
+
+							// Start transitioning.
+								$this.addClass('is-transitioning');
+								$wrapper.addClass('is-transitioning');
+
+							// Redirect.
+								window.setTimeout(function() {
+
+									if ($link.attr('target') == '_blank')
+										window.open(href);
+									else
+										location.href = href;
+
+								}, 500);
 
 						});
 
+					}
+
 			});
 
-	// Footer.
-		var $footer = $('#footer');
+		// Header.
+			if (skel.vars.IEVersion < 9)
+				$header.removeClass('alt');
 
-		// Copyright.
-		// This basically just moves the copyright line to the end of the *last* sibling of its current parent
-		// when the "medium" breakpoint activates, and moves it back when it deactivates.
-			$footer.find('.copyright').each(function() {
+			if ($banner.length > 0
+			&&	$header.hasClass('alt')) {
 
-				var $this = $(this),
-					$parent = $this.parent(),
-					$lastParent = $parent.parent().children().last();
-
-				breakpoints.on('<=medium', function() {
-					$this.appendTo($lastParent);
+				$window.on('resize', function() {
+					$window.trigger('scroll');
 				});
 
-				breakpoints.on('>medium', function() {
-					$this.appendTo($parent);
-				});
+				$window.on('load', function() {
 
-			});
-
-	// Main.
-		var $main = $('#main');
-
-		// Thumbs.
-			$main.children('.thumb').each(function() {
-
-				var	$this = $(this),
-					$image = $this.find('.image'), $image_img = $image.children('img'),
-					x;
-
-				// No image? Bail.
-					if ($image.length == 0)
-						return;
-
-				// Image.
-				// This sets the background of the "image" <span> to the image pointed to by its child
-				// <img> (which is then hidden). Gives us way more flexibility.
-
-					// Set background.
-						$image.css('background-image', 'url(' + $image_img.attr('src') + ')');
-
-					// Set background position.
-						if (x = $image_img.data('position'))
-							$image.css('background-position', x);
-
-					// Hide original img.
-						$image_img.hide();
-
-			});
-
-		// Poptrox.
-			$main.poptrox({
-				baseZIndex: 20000,
-				caption: function($a) {
-
-					var s = '';
-
-					$a.nextAll().each(function() {
-						s += this.outerHTML;
+					$banner.scrollex({
+						bottom:		$header.height() + 10,
+						terminate:	function() { $header.removeClass('alt'); },
+						enter:		function() { $header.addClass('alt'); },
+						leave:		function() { $header.removeClass('alt'); $header.addClass('reveal'); }
 					});
 
-					return s;
+					window.setTimeout(function() {
+						$window.triggerHandler('scroll');
+					}, 100);
 
-				},
-				fadeSpeed: 300,
-				onPopupClose: function() { $body.removeClass('modal-active'); },
-				onPopupOpen: function() { $body.addClass('modal-active'); },
-				overlayOpacity: 0,
-				popupCloserText: '',
-				popupHeight: 150,
-				popupLoaderText: '',
-				popupSpeed: 300,
-				popupWidth: 150,
-				selector: '.thumb > a.image',
-				usePopupCaption: true,
-				usePopupCloser: true,
-				usePopupDefaultStyling: false,
-				usePopupForceClose: true,
-				usePopupLoader: true,
-				usePopupNav: true,
-				windowMargin: 50
+				});
+
+			}
+
+		// Banner.
+			$banner.each(function() {
+
+				var $this = $(this),
+					$image = $this.find('.image'), $img = $image.find('img');
+
+				// Parallax.
+					$this._parallax(0.275);
+
+				// Image.
+					if ($image.length > 0) {
+
+						// Set image.
+							$this.css('background-image', 'url(' + $img.attr('src') + ')');
+
+						// Hide original.
+							$image.hide();
+
+					}
+
 			});
 
-			// Hack: Set margins to 0 when 'xsmall' activates.
-				breakpoints.on('<=xsmall', function() {
-					$main[0]._poptrox.windowMargin = 0;
+		// Menu.
+			var $menu = $('#menu'),
+				$menuInner;
+
+			$menu.wrapInner('<div class="inner"></div>');
+			$menuInner = $menu.children('.inner');
+			$menu._locked = false;
+
+			$menu._lock = function() {
+
+				if ($menu._locked)
+					return false;
+
+				$menu._locked = true;
+
+				window.setTimeout(function() {
+					$menu._locked = false;
+				}, 350);
+
+				return true;
+
+			};
+
+			$menu._show = function() {
+
+				if ($menu._lock())
+					$body.addClass('is-menu-visible');
+
+			};
+
+			$menu._hide = function() {
+
+				if ($menu._lock())
+					$body.removeClass('is-menu-visible');
+
+			};
+
+			$menu._toggle = function() {
+
+				if ($menu._lock())
+					$body.toggleClass('is-menu-visible');
+
+			};
+
+			$menuInner
+				.on('click', function(event) {
+					event.stopPropagation();
+				})
+				.on('click', 'a', function(event) {
+
+					var href = $(this).attr('href');
+
+					event.preventDefault();
+					event.stopPropagation();
+
+					// Hide.
+						$menu._hide();
+
+					// Redirect.
+						window.setTimeout(function() {
+							window.location.href = href;
+						}, 250);
+
 				});
 
-				breakpoints.on('>xsmall', function() {
-					$main[0]._poptrox.windowMargin = 50;
+			$menu
+				.appendTo($body)
+				.on('click', function(event) {
+
+					event.stopPropagation();
+					event.preventDefault();
+
+					$body.removeClass('is-menu-visible');
+
+				})
+				.append('<a class="close" href="#menu">Close</a>');
+
+			$body
+				.on('click', 'a[href="#menu"]', function(event) {
+
+					event.stopPropagation();
+					event.preventDefault();
+
+					// Toggle.
+						$menu._toggle();
+
+				})
+				.on('click', function(event) {
+
+					// Hide.
+						$menu._hide();
+
+				})
+				.on('keydown', function(event) {
+
+					// Hide on escape.
+						if (event.keyCode == 27)
+							$menu._hide();
+
 				});
+
+	});
 
 })(jQuery);
