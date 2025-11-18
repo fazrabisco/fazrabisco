@@ -1,6 +1,6 @@
 # Site settings
 url: "https://fazrabisco.com"
-baseurl: "/html5up-forty"
+baseurl: "/fazrabisco"
 markdown: kramdown
 title: 
 tagline: faz rabisco
