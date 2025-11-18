@@ -1,9 +1,10 @@
 ---
 layout: post
-title: Etiam
-description: Feugiat amet tempus
-image: assets/images/camaleao.pdf
+title: Memória
+description: Test descrição
 ---
+
+<span class="image fit"><img src="/forty-jekyll-theme/assets/images/bluemarble.jpg" alt="" /></span>
 
 Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. 
 Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. 
