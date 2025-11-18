@@ -1,52 +1,31 @@
 ---
 layout: post
-author: 
-title: as pessoas
-date: 2025-11-18
-tagline: 
-image: images/memoria.jpg
+author: Awesome McGreat
+title: "Welcome to Jekyll!"
+date: 2016-07-07
+tagline: Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.
+image: images/pic08.jpg
 # Image position options: center center, top center, 25% 25%
 imagePosition: center center
-bannerImage: images/memoria.jpg
+bannerImage: images/pic11.jpg
 ---
 
-“As pessoas” somos nós <br>
-pequenos jogos de ilusão <br>
-glitters requintados e jargão <br>
-fruta feia com buracos: <br>
-a humanidade entra dentro <br>
-da casca puritana e faz-nos <br>
-no núcleo, ainda <br>
-o que sempre fomos <br>
+You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-em cada estilhaço de vidro <br>
-uma realidade refractada<br>
+To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
 
-um reflexo incógnito nas partes<br>
-esquiva-se do golpe identitário<br>
-num ringue quotidiano<br>
-onde luzes brilham <br>
-delimitando<br>
-teatros do olhar<br>
+Jekyll also offers powerful support for code snippets:
 
-que nem das árvores nem da terra <br>
-veio jamais alguma coisa sem pó <br>
-sem mazela, macerada, podre, <br>
-abaulada, siamesa, magricela <br>
+{% highlight ruby %}
+def print_hi(name)
+  puts "Hi, #{name}"
+end
+print_hi('Tom')
+#=> prints 'Hi, Tom' to STDOUT.
+{% endhighlight %}
 
-que nem por isso faltou na mesa de jantar <br>
-sumo fresco ou salada pra manjar <br>
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 
-O que não presta para o balde <br>
-cães, patos ou galinhas, alguém há de apreciar <br>
-e aquilo que solução já não tem - <br>
-partes matreiras e disformes <br>
-inveja e sadismo que transborde <br>
-de vingança e crueldade enormes - <br>
-que venham adentro <br>
-tratamo-las como de costume: <br>
-junta calor e humidade, que dá bom estrume <br>
-
-e então? <br>
-que fazer das voláteis vozes que perduram? <br>
-deita-se chama que vão em lume
+[jekyll-docs]: http://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/

@@ -1,8 +1,18 @@
 # Site settings
-url: "https://fazrabisco.com/"
-baseurl: "/fazrabisco"
+url: "https://lufevida.github.io"
+baseurl: "/html5up-forty"
 markdown: kramdown
-title: 
-tagline: faz rabisco
-bannerTitle: faz rabisco
-bannerDescription: 
+title: Forty
+tagline: by HTML5 UP
+bannerTitle: Hi, my name is Forty
+bannerDescription: "A responsive site template designed by html5 up<br>and released under the creative commons."
+
+address: "1234 Somewhere Road 5432<br>Nashville, TN 00000<br>United States of America"
+phone: 012-345-6789
+email: email@domain.com
+twitter: username
+facebook: username
+instagram: username
+github: username
+linkedin: username
+copyright: Copyright Owner
