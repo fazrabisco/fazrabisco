@@ -1,0 +1,15 @@
+{% for my_page in site.pages %}
+	{% if my_page.showOnHomePage == true %}
+<section id="two">
+	<div class="inner">
+		<header class="major">
+			<h2>{{ my_page.title }}</h2>
+		</header>
+		<p>{{ my_page.tagline }}</p>
+		<ul class="actions">
+			<li><a href="{{ site.baseurl}}/blogIndex.html" class="button next">Learn More</a></li>
+		</ul>
+	</div>
+</section>
+	{% endif %}
+{% endfor %}
