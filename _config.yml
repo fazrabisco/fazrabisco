@@ -1,5 +1,5 @@
 # Site settings
-url: "https://fazrabisco.com"
+url: "https://fazrabisco.com/"
 baseurl: "/fazrabisco"
 markdown: kramdown
 title: 
