@@ -1,7 +1,7 @@
 ---
 layout: allposts
-title: tiradas
-landing-title: 'tiradas'
+title: All posts
+landing-title: 'All posts'
 nav-menu: true
 description: null
 image: null
@@ -9,4 +9,4 @@ author: null
 show_tile: false
 ---
 
-<h1>tiradas</h1>
+<h1>All posts</h1>
