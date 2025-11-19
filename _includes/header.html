@@ -19,7 +19,9 @@
 		{% endfor %}
 		{% for page in site.html_pages %}
 		    {% if page.layout != "home" and page.nav-menu == true %}
+				<section{% if page.full_tile %} class="full"{% endif %}></section>
 		        <li><a href="{{ page.url | absolute_url }}">{{ page.title }}</a></li>
+				</section>
 		    {% endif %}
 		{% endfor %}
 	</ul>
