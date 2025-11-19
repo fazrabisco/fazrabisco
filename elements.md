@@ -2,7 +2,7 @@
 layout: page
 title: Elements
 image: assets/images/bluemarble.jpg
-nav-menu: true
+nav-menu: false
 ---
 
 <!-- Main -->
