@@ -22,7 +22,7 @@ nav-menu: true
 <!-- Two -->
 <section id="two" class="spotlights">
 	<section>
-		<a href="posts/2025-11-11-pessoas.md class="image">
+		<a href="_posts/2025-11-11-pessoas.md class="image">
 			<img src="{% link assets/images/bluemarble.jpg %}" alt="" data-position="center center" />
 		</a>
 		<div class="content">
@@ -31,7 +31,7 @@ nav-menu: true
 					<h3>as pessoas</h3>
 				</header>
 				<ul class="actions">
-					<li><a href="posts/2025-11-11-pessoas.md" class="button">ler</a></li>
+					<li><a href="_posts/2025-11-11-pessoas.md" class="button">ler</a></li>
 				</ul>
 			</div>
 		</div>
