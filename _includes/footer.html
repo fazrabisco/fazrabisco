@@ -73,9 +73,33 @@ if (typeof jQuery === 'undefined' || typeof skel === 'undefined') {
 
 <style>
 .post-image {
-  max-width: 40%;
+  float: left;
+  max-width: 50%;
   display:block;
   margin: 1.5rem auto;
   height: auto;
 }
 </style>
+
+
+<!--Short answer: you added the CSS to the footer include as a quick, immediate fix so the rule loads after everything else and overrides existing styles. It’s fine for testing, but not the best place for permanent styles.
+
+Why it works
+
+Styles in the footer are loaded last, so they override earlier CSS without increasing selector specificity.
+It’s fast for debugging or a quick patch (no build step needed if the site is already served).
+Why you shouldn’t keep it there long-term
+
+Mixing markup and CSS hurts maintainability.
+It prevents proper asset caching and optimization.
+It’s harder to track and version CSS changes.
+Recommended options (pick one)
+
+Add to the theme CSS (recommended)
+If your site has assets/css/main.css (or sass/* partials), add the rules there.
+Or, with the Sass partial approach:
+
+Then import it in your main stylesheet (e.g., main.scss or _sass/main.scss):
+
+Keep in footer only for quick testing
+Keep what you have, but move to a stylesheet as soon as the changes are confirmed.-->
