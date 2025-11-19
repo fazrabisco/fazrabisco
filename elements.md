@@ -3,6 +3,7 @@ layout: page
 title: Elements
 image: assets/images/bluemarble.jpg
 nav-menu: false
+show_tile: false
 ---
 
 <!-- Main -->
