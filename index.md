@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-landing-title: faz rabisco
+landing-title:
 description: null
 image: null
 author: null

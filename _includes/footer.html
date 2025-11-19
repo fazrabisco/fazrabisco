@@ -64,7 +64,8 @@ if (typeof jQuery === 'undefined' || typeof skel === 'undefined') {
   document.querySelectorAll('a[href="#menu"]').forEach(function(el){
     el.addEventListener('click', function(e){
       e.preventDefault();
-      document.getElementById('menu')?.classList.toggle('visible');
+      var m = document.getElementById('menu');
+      if (m) m.classList.toggle('visible');
     });
   });
 }
